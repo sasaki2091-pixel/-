@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>当選者発表</title>
+<style>
+  body {
+    font-family: sans-serif;
+    background: #111;
+    color: #fff;
+    text-align: center;
+  }
+
+  .frame {
+    width: 300px;
+    height: 200px;
+    margin: 50px auto;
+    border: 4px solid #fff;
+    overflow: hidden;
+    position: relative;
+    background: #000;
+  }
+
+  .line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: red;
+    z-index: 10;
+  }
+
+  .list {
+    position: absolute;
+    width: 100%;
+    top: 0;
+  }
+
+  .item {
+    height: 40px;
+    line-height: 40px;
+    font-size: 24px;
+  }
+
+  button {
+    font-size: 20px;
+    padding: 10px 30px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<h1>当選者発表</h1>
+
+<div class="frame">
+  <div class="line"></div>
+  <div class="list" id="list"></div>
+</div>
+
+<button onclick="start()">START</button>
+
+<script>
+const names = [
+  "a氏","b氏","c氏","d氏","e氏","f氏",
+  "g氏","h氏","i氏","j氏"
+];
+
+const list = document.getElementById("list");
+
+// リスト生成（無限スクロール用に複製）
+for (let i = 0; i < 10; i++) {
+  names.forEach(name => {
+    const div = document.createElement("div");
+    div.className = "item";
+    div.textContent = name;
+    list.appendChild(div);
+  });
+}
+
+let position = 0;
+let speed = 30;
+let timer;
+
+function start() {
+  clearInterval(timer);
+  speed = 30;
+
+  timer = setInterval(() => {
+    position -= speed;
+    list.style.top = position + "px";
+
+    if (Math.abs(position) > list.offsetHeight / 2) {
+      position = 0;
+    }
+
+    // 徐々に減速
+    speed *= 0.97;
+
+    if (speed < 0.5) {
+      clearInterval(timer);
+      alignCenter();
+    }
+  }, 16);
+}
+
+function alignCenter() {
+  const frameCenter = document.querySelector(".frame").offsetHeight / 2;
+  const items = document.querySelectorAll(".item");
+
+  let closest;
+  let minDiff = Infinity;
+
+  items.forEach(item => {
+    const rect = item.getBoundingClientRect();
+    const diff = Math.abs(rect.top + rect.height / 2 - window.innerHeight / 2);
+    if (diff < minDiff) {
+      minDiff = diff;
+      closest = item;
+    }
+  });
+
+  alert("🎉 当選：" + closest.textContent);
+}
+</script>
+
+</body>
+</html>
