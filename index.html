@@ -8,22 +8,80 @@
 
 <body>
 
-<h1 class="title">当選者発表</h1>
+<h1>当選者発表</h1>
 
-<div class="roulette-wrapper">
-  <div class="frame">
-    <div class="line"></div>
-    <div class="list" id="list"></div>
-  </div>
+<div class="frame">
+  <div class="line"></div>
+  <div class="list" id="list"></div>
 </div>
 
 <button onclick="start()">START</button>
 
-<!-- 当選表示（全画面） -->
-<div id="winnerOverlay" class="overlay hidden">
-  <div id="winnerName" class="winner-name"></div>
-</div>
+<script>
+const names = [
+  "a氏","b氏","c氏","d氏","e氏",
+  "f氏","g氏","h氏","i氏","j氏"
+];
 
-<script src="index.js"></script>
+const list = document.getElementById("list");
+
+// リスト生成
+for (let i = 0; i < 10; i++) {
+  names.forEach(name => {
+    const div = document.createElement("div");
+    div.className = "item";
+    div.textContent = name;
+    list.appendChild(div);
+  });
+}
+
+let position = 0;
+let speed = 30;
+let timer;
+
+function start() {
+  clearInterval(timer);
+  speed = 30;
+
+  timer = setInterval(() => {
+    position -= speed;
+    list.style.top = position + "px";
+
+    if (Math.abs(position) > list.offsetHeight / 2) {
+      position = 0;
+    }
+
+    speed *= 0.97;
+
+    if (speed < 0.5) {
+      clearInterval(timer);
+      alignCenter();
+    }
+  }, 16);
+}
+
+function alignCenter() {
+  const frame = document.querySelector(".frame");
+  const frameCenter = frame.getBoundingClientRect().top + frame.offsetHeight / 2;
+
+  const items = document.querySelectorAll(".item");
+  let closest = null;
+  let minDiff = Infinity;
+
+  items.forEach(item => {
+    const rect = item.getBoundingClientRect();
+    const itemCenter = rect.top + rect.height / 2;
+    const diff = Math.abs(itemCenter - frameCenter);
+
+    if (diff < minDiff) {
+      minDiff = diff;
+      closest = item;
+    }
+  });
+
+  alert("🎉 当選：" + closest.textContent);
+}
+</script>
+
 </body>
 </html>
