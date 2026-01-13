@@ -62,11 +62,14 @@ function start() {
 }
 
 function alignCenter() {
-  const frame = document.querySelector(".frame");
-  const frameCenter = frame.getBoundingClientRect().top + frame.offsetHeight / 2;
+ const items = document.querySelectorAll(".item");
 
-  const items = document.querySelectorAll(".item");
-  let closest = null;
+  // 画面中央を基準に一番近い人を当選にする
+  const frame = document.querySelector(".frame");
+  const frameRect = frame.getBoundingClientRect();
+  const frameCenter = frameRect.top + frameRect.height / 2;
+
+  let winner = null;
   let minDiff = Infinity;
 
   items.forEach(item => {
@@ -76,11 +79,18 @@ function alignCenter() {
 
     if (diff < minDiff) {
       minDiff = diff;
-      closest = item;
+      winner = item;
     }
   });
 
-  alert("🎉 当選：" + closest.textContent);
+  // ▼ 演出処理 ▼
+  items.forEach(item => {
+    if (item === winner) {
+      item.classList.add("winner"); // ズーム
+    } else {
+      item.classList.add("fade");   // フェードアウト
+    }
+  });
 }
 </script>
 
