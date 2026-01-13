@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: "Hiragino Kaku Gothic Pro", sans-serif;
+  font-family: sans-serif;
   background: radial-gradient(circle, #0b1c2d, #000);
   color: #fff;
   text-align: center;
@@ -21,8 +21,8 @@ body {
   width: 300px;
   height: 200px;
   border: 4px solid #fff;
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
   background: #000;
 }
 
@@ -48,7 +48,14 @@ body {
   font-size: 28px;
 }
 
-/* ===== 当選オーバーレイ ===== */
+button {
+  margin-top: 30px;
+  font-size: 20px;
+  padding: 10px 30px;
+  cursor: pointer;
+}
+
+/* ===== 当選演出 ===== */
 
 .overlay {
   position: fixed;
@@ -81,4 +88,3 @@ body {
     opacity: 1;
   }
 }
-
