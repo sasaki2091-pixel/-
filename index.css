@@ -63,3 +63,21 @@ button {
   padding: 10px 30px;
   cursor: pointer;
 }
+/* 当選者 */
+.item.winner {
+  transform: scale(2.2);
+  color: gold;
+  z-index: 20;
+}
+
+/* ハズレ */
+.item.fade {
+  opacity: 0.1;
+}
+
+/* ズーム時に中央に寄せる */
+.frame.zooming .list {
+  transition: transform 0.6s ease;
+  transform: translateY(0);
+}
+
