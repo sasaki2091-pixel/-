@@ -43,14 +43,33 @@ function start() {
 }
 
 function alignCenter() {
+  const items = document.querySelectorAll(".item");
+
+  // 画面中央を基準に一番近い人を当選にする
   const frame = document.querySelector(".frame");
   const frameRect = frame.getBoundingClientRect();
   const frameCenter = frameRect.top + frameRect.height / 2;
 
-  const items = document.querySelectorAll(".item");
-
-  let closest = null;
+  let winner = null;
   let minDiff = Infinity;
 
   items.forEach(item => {
     const rect = item.getBoundingClientRect();
+    const itemCenter = rect.top + rect.height / 2;
+    const diff = Math.abs(itemCenter - frameCenter);
+
+    if (diff < minDiff) {
+      minDiff = diff;
+      winner = item;
+    }
+  });
+
+  // ▼ 演出処理 ▼
+  items.forEach(item => {
+    if (item === winner) {
+      item.classList.add("winner"); // ズーム
+    } else {
+      item.classList.add("fade");   // フェードアウト
+    }
+  });
+}
