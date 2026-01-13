@@ -1,9 +1,13 @@
 body {
   margin: 0;
+  min-height: 100vh;
   font-family: sans-serif;
   background: radial-gradient(circle, #0b1c2d, #000);
   color: #fff;
-  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .title {
@@ -11,11 +15,10 @@ body {
 }
 
 .roulette-wrapper {
-  display: flex;
-  justify-content: center;
   margin-top: 40px;
 }
 
+/* ルーレット枠 */
 .frame {
   width: 300px;
   height: 200px;
@@ -25,6 +28,7 @@ body {
   background: #000;
 }
 
+/* 赤ライン（今回は当選判定には使わない） */
 .line {
   position: absolute;
   top: 50%;
@@ -35,42 +39,27 @@ body {
   z-index: 10;
 }
 
+/* リスト */
 .list {
   position: absolute;
   width: 100%;
   top: 0;
 }
 
+/* 各名前 */
 .item {
   height: 40px;
   line-height: 40px;
   font-size: 28px;
+  transition: 
+    transform 0.6s ease,
+    opacity 0.6s ease;
 }
 
+/* ボタン */
 button {
   margin-top: 30px;
   font-size: 20px;
   padding: 10px 30px;
   cursor: pointer;
-}
-
-/* 当選演出 */
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.9);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-
-.hidden {
-  display: none;
-}
-
-.winner-name {
-  font-size: 96px;
-  color: gold;
-  letter-spacing: 8px;
 }
