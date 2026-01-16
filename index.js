@@ -31,6 +31,15 @@ function start() {
   speed = 30;
   overlay.classList.add("hidden");
 
+  const items = document.querySelectorAll(".item");
+  const itemHeight = items[0].offsetHeight;
+
+  // ★ ランダムな開始位置（0〜names.length-1）
+  const randomIndex = Math.floor(Math.random() * names.length);
+  position = -randomIndex * itemHeight;
+
+  list.style.top = position + "px";
+
   timer = setInterval(() => {
     position -= speed;
     list.style.top = position + "px";
@@ -39,17 +48,17 @@ function start() {
       position = 0;
     }
 
-    // ▼ ここからスローモーション制御
     if (speed > 5) {
       speed *= 0.97;
     } else if (speed > 1) {
-      speed *= 0.985; // ラストのスロー
+      speed *= 0.985;
     } else {
       clearInterval(timer);
       decideWinner();
     }
   }, 16);
 }
+
 
 
 // ===== 当選判定 =====
