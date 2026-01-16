@@ -1,11 +1,15 @@
+// ===== 設定 =====
 const names = [
   "a氏","b氏","c氏","d氏","e氏",
   "f氏","g氏","h氏","i氏","j氏"
 ];
 
 const list = document.getElementById("list");
+const startBtn = document.getElementById("startBtn");
+const overlay = document.getElementById("winnerOverlay");
+const winnerName = document.getElementById("winnerName");
 
-// 無限スクロール用生成
+// ===== リスト生成（無限スクロール用）=====
 for (let i = 0; i < 10; i++) {
   names.forEach(name => {
     const div = document.createElement("div");
@@ -17,13 +21,15 @@ for (let i = 0; i < 10; i++) {
 
 let position = 0;
 let speed = 30;
-let timer;
+let timer = null;
+
+// ===== スタート =====
+startBtn.addEventListener("click", start);
 
 function start() {
   clearInterval(timer);
   speed = 30;
-
-  document.getElementById("winnerOverlay").classList.add("hidden");
+  overlay.classList.add("hidden");
 
   timer = setInterval(() => {
     position -= speed;
@@ -33,43 +39,46 @@ function start() {
       position = 0;
     }
 
-    speed *= 0.97;
-
-    if (speed < 0.5) {
+    // ▼ ここからスローモーション制御
+    if (speed > 5) {
+      speed *= 0.97;
+    } else if (speed > 1) {
+      speed *= 0.985; // ラストのスロー
+    } else {
       clearInterval(timer);
-      alignCenter();
+      decideWinner();
     }
   }, 16);
 }
 
-function alignCenter() {
-  const items = document.querySelectorAll(".item");
 
-  // 画面中央を基準に一番近い人を当選にする
+// ===== 当選判定 =====
+function decideWinner() {
   const frame = document.querySelector(".frame");
   const frameRect = frame.getBoundingClientRect();
-  const frameCenter = frameRect.top + frameRect.height / 2;
+  const lineY = frameRect.top + frameRect.height / 2;
 
-  let winner = null;
+  const items = document.querySelectorAll(".item");
+
+  let closest = null;
   let minDiff = Infinity;
 
   items.forEach(item => {
     const rect = item.getBoundingClientRect();
-    const itemCenter = rect.top + rect.height / 2;
-    const diff = Math.abs(itemCenter - frameCenter);
+    const center = rect.top + rect.height / 2;
+    const diff = Math.abs(center - lineY);
 
     if (diff < minDiff) {
       minDiff = diff;
-      winner = item;
+      closest = item;
     }
   });
 
-  // ▼ 演出処理 ▼
-  items.forEach(item => {
-    if (item === winner) {
-      item.classList.add("winner"); // ズーム
-    } else {
-      item.classList.add("fade");   // フェードアウト
-    }
-  });
+  showWinner(closest.textContent);
+}
+
+// ===== 当選演出 =====
+function showWinner(name) {
+  winnerName.textContent = name;
+  overlay.classList.remove("hidden");
 }
