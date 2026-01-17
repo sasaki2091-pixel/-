@@ -96,6 +96,7 @@ timer = setInterval(() => {
     }, 500);
   }
 }, 16);
+}
 
 
 // ===== 当選判定 =====
@@ -128,3 +129,4 @@ function showWinner(name) {
   winnerName.textContent = name;
   overlay.classList.remove("hidden");
 }
+
