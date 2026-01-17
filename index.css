@@ -51,41 +51,73 @@ body {
   pointer-events: none;
 }
 
+/* 上フェード */
 .frame::before {
+  content: "";
+  position: absolute;
   top: 0;
+  left: 0;
+  width: 100%;
+  height: 20%;
   background: linear-gradient(
     to bottom,
     #052948 0%,
     rgba(5,41,72,0) 100%
   );
+  pointer-events: none;
+  z-index: 4;
 }
 
+/* 下フェード + 中央発光（統合） */
 .frame::after {
-  bottom: 0;
-  background: linear-gradient(
-    to top,
-    #052948 0%,
-    rgba(5,41,72,0) 100%
-  );
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to top,
+      #052948 0%,
+      rgba(5,41,72,0) 20%
+    ),
+    radial-gradient(
+      ellipse at center,
+      rgba(204,204,255,0.25) 0%,
+      rgba(204,204,255,0.15) 35%,
+      rgba(204,204,255,0) 70%
+    );
+  pointer-events: none;
+  z-index: 4;
 }
 
 
 
 
-/* 赤ライン */
-/* 中央ライン（鼓動） */
+
+/* 光の帯 */
 .line {
   position: absolute;
   top: 50%;
   left: 0;
   width: 100%;
-  height: 6px;
-  background: #ff4d4d;
+  height: 14vh;
   transform: translateY(-50%);
-  animation: pulseLine 1.2s ease-in-out infinite;
-  box-shadow: 0 0 10px rgba(255, 77, 77, 0.6);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(204,204,255,0.35) 0%,
+    rgba(204,204,255,0.18) 35%,
+    rgba(204,204,255,0) 70%
+  );
+  animation: glowPulse 1.6s ease-in-out infinite;
+  pointer-events: none;
   z-index: 3;
 }
+
+@keyframes glowPulse {
+  0%   { opacity: 0.35; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.35; }
+}
+
 
 /* 鼓動アニメーション */
 @keyframes pulseLine {
