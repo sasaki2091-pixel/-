@@ -31,7 +31,7 @@ body {
 /* ルーレット枠 */
 .frame {
   width: 100vw;
-  height: 80vh;
+  height: 60vh;
   margin: auto;
   position: relative;   /* ← これ必須 */
   overflow: hidden;     /* ← これ必須 */
