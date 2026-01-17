@@ -56,7 +56,7 @@ function start() {
       clearInterval(timer);
       decideWinner();
     }
-  }, 500);
+  }, 50);
 }
 
 
