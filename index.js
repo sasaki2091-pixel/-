@@ -48,10 +48,10 @@ function start() {
       position = 0;
     }
 
-    if (speed > 5) {
-      speed *= 0.97;
+    if (speed > 10) {
+      speed *= 0.985;   // かなり長く回る
     } else if (speed > 1) {
-      speed *= 0.985;
+      speed *= 0.993;   // ストップ直前をじっくり
     } else {
       clearInterval(timer);
       decideWinner();
