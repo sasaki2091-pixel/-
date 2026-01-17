@@ -2,15 +2,10 @@
 body {
   margin: 0;
   font-family: sans-serif;
-  background: #111;
-  color: white;
+  background: #052948;
+  color: #CCCCFF;
   text-align: center;
 }
-body {
-  background-color: #052948;
-  color: #CCCCFF;
-}
-
 .title {
   font-size: 48px;
   font-weight: bold;
