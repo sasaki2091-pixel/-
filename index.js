@@ -20,7 +20,7 @@ for (let i = 0; i < 10; i++) {
 }
 
 let position = 0;
-let speed = 30;
+let speed = 300;
 let timer = null;
 
 // ===== スタート =====
@@ -28,7 +28,7 @@ startBtn.addEventListener("click", start);
 
 function start() {
   clearInterval(timer);
-  speed = 30;
+  speed = 100;
   overlay.classList.add("hidden");
 
   const items = document.querySelectorAll(".item");
