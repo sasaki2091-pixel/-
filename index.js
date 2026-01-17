@@ -34,31 +34,68 @@ function start() {
   const items = document.querySelectorAll(".item");
   const itemHeight = items[0].offsetHeight;
 
-  // ★ ランダムな開始位置（0〜names.length-1）
-  const randomIndex = Math.floor(Math.random() * names.length);
-  position = -randomIndex * itemHeight;
+//   // ★ ランダムな開始位置（0〜names.length-1）
+//   const randomIndex = Math.floor(Math.random() * names.length);
+//   position = -randomIndex * itemHeight;
 
+//   list.style.top = position + "px";
+
+//   timer = setInterval(() => {
+//     position -= speed;
+//     list.style.top = position + "px";
+
+//     if (Math.abs(position) > list.offsetHeight / 2) {
+//       position = 0;
+//     }
+
+//     if (speed > 10) {
+//       speed *= 0.985;   // かなり長く回る
+//     } else if (speed > 1) {
+//       speed *= 0.993;   // ストップ直前をじっくり
+//     } else {
+//       clearInterval(timer);
+
+//       decideWinner();
+//     }
+//   }, 16);
+// }
+
+// ランダムな開始位置
+const randomIndex = Math.floor(Math.random() * names.length);
+position = -randomIndex * itemHeight;
+list.style.top = position + "px";
+
+timer = setInterval(() => {
+  position -= speed;
   list.style.top = position + "px";
 
-  timer = setInterval(() => {
-    position -= speed;
+  // 無限スクロール
+  if (Math.abs(position) > list.offsetHeight / 2) {
+    position = 0;
+  }
+
+  // 減速処理
+  if (speed > 10) {
+    speed *= 0.985;
+  } else if (speed > 1) {
+    speed *= 0.993;
+  } else {
+    // ===== 完全停止フェーズ =====
+    clearInterval(timer);
+
+    // ▼ 中央に一番近い行を計算
+    const offset = position % itemHeight;
+    position -= offset;
+
+    // ▼ ピタッと中央に吸着
     list.style.top = position + "px";
 
-    if (Math.abs(position) > list.offsetHeight / 2) {
-      position = 0;
-    }
-
-    if (speed > 10) {
-      speed *= 0.985;   // かなり長く回る
-    } else if (speed > 1) {
-      speed *= 0.993;   // ストップ直前をじっくり
-    } else {
-      clearInterval(timer);
+    // ▼「止まった感」を作る間
+    setTimeout(() => {
       decideWinner();
-    }
-  }, 16);
-}
-
+    }, 500);
+  }
+}, 16);
 
 
 // ===== 当選判定 =====
