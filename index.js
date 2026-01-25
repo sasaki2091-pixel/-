@@ -1,8 +1,10 @@
 // ===== 設定 =====
 const names = [
-  "a氏","b氏","c氏","d氏","e氏",
-  "f氏","g氏","h氏","i氏","j氏"
+  "株式会社〇〇 山田 太郎 様",
+  "△△工業 佐藤 花子 様",
+  "□□建設 鈴木 一郎 様"
 ];
+
 
 const list = document.getElementById("list");
 const startBtn = document.getElementById("startBtn");
