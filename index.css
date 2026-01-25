@@ -50,8 +50,7 @@ body {
   z-index: 2;
   pointer-events: none;
 }
-
-/* 上フェード */
+/* 上フェード（そのまま） */
 .frame::before {
   content: "";
   position: absolute;
@@ -68,28 +67,22 @@ body {
   z-index: 4;
 }
 
-/* 下フェード + 中央発光（統合） */
+/* 下フェード（光なし） */
 .frame::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(
-      to top,
-      #052948 0%,
-      rgba(5,41,72,0) 20%
-    ),
-    radial-gradient(
-      ellipse at center,
-      rgba(204,204,255,0.25) 0%,
-      rgba(204,204,255,0.15) 35%,
-      rgba(204,204,255,0) 70%
-    );
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20%;
+  background: linear-gradient(
+    to top,
+    #052948 0%,
+    rgba(5,41,72,0) 100%
+  );
   pointer-events: none;
   z-index: 4;
 }
-
-
 
 
 
